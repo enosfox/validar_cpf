@@ -1,3 +1,3 @@
-# Bordas Animadas
+# Validando CPF
 
-borda animada com mudanças dos parametros simples
+Validação simples de CPF
