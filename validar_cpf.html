@@ -9,30 +9,68 @@
 
 	<script>
 		function validaCpf(strCPF) {
-			cpf = strCPF.replace(/[^\d]+/g, '')
-		    let Soma
-		    let Resto
-		    Soma = 0
-		  	if (cpf == "00000000000") return false
+			let cpf = strCPF.replace(/[^\d]+/g, '')
+			let Soma = 0
+			let Resto
 
-		  	for (i=1; i<=9; i++) Soma = Soma + parseInt(cpf.substring(i-1, i)) * (11 - i)
-		  	Resto = (Soma * 10) % 11
+			if(cpf == "00000000000"){
+				return false
+			}
 
-		    if ((Resto == 10) || (Resto == 11))  Resto = 0
-		    if (Resto != parseInt(cpf.substring(9, 10)) ) return false
+			//multiplica e soma todos os 9 dígitos
+			//multiplicando cada digito de 10 até 2 na sua ordem
+			for(i = 0; i < 9; i++){
+				Soma += parseInt(cpf[i]) * (10 - i)
+			}
+			
+			//subtrai de 11 o resto da divisão da soma por 11 (ex: 210 / 11 resta 1)
+			//então resto = 1
+			//lembrando que se o resto for 0 ou 1 é obrigatorio valor ser ZERO
+			//por tanto 11 - 1 = 10
+			Resto = 11 - Soma % 11
 
-		  	Soma = 0
-		    for (i = 1; i <= 10; i++) Soma = Soma + parseInt(cpf.substring(i-1, i)) * (12 - i)
-		    Resto = (Soma * 10) % 11
+			//se Resto for 10 ou 1 o valor de Resto será Zero
+			if( (Resto == 10) || (Resto == 1) ){
+				Resto = 0
+			}
 
-		    if ((Resto == 10) || (Resto == 11))  Resto = 0
-		    if (Resto != parseInt(cpf.substring(10, 11) ) ) return false
-		    	
-		    return true
+			//se o 10º dígito for diferente de Resto paramos por aqui e retorna false
+			if( Resto != parseInt(cpf[9]) ){
+				return false
+			}
+
+			//Zeramos a soma para iniciar nova contagem
+			Soma = 0
+
+			//multiplica e soma todos os 9 dígitos mais o primeiro dígito verificador
+			//multiplicando cada digito de 11 até 2 na sua ordem
+			for(i = 0; i < 10; i++){
+				Soma += parseInt(cpf[i]) * (11 - i)
+			}
+			
+			//subtrai de 11 o resto da divisão da soma por 11 (ex: 255 / 11 resta 2)
+			//então resto = 2
+			//por tanto 11 - 2 = 9
+			//lembrando que se o resto for 0 ou 1 é obrigatorio valor ser ZERO
+			Resto = 11 - Soma % 11
+
+			//se Resto for 10 ou 1 o valor de Resto será Zero
+			if( (Resto == 10) || (Resto == 1) ){
+				Resto = 0
+			}
+
+			//se o 10º dígito for diferente de Resto paramos por aqui e retorna false
+			if( Resto != parseInt(cpf[10]) ){
+				return false
+			}
+
+			return true
 		}
 
-		let cpf = "12345678909"
-		alert(validaCpf(cpf))
+		//123.456.789-09
+		//111.222.333-96
+		//224.396.860-69
+		alert(validaCpf('123.456.789-09'))
 	</script>
 
 </body>
