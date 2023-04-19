@@ -13,7 +13,24 @@
 			let Soma = 0
 			let Resto
 
-			if(cpf == "00000000000"){
+			if(cpf.length > 11) {alert('os numeros de cpf precisam está com 11 dígitos'); return false}
+			if(cpf.length < 11) {alert('os numeros de cpf precisam está com 11 dígitos'); return false}
+
+			let repeat = [
+				'00000000000',
+				'11111111111',
+				'22222222222',
+				'33333333333',
+				'44444444444',
+				'55555555555',
+				'66666666666',
+				'77777777777',
+				'88888888888',
+				'99999999999'
+			]
+
+			//verifica numeros repetidos
+			if(repeat.includes(cpf)){
 				return false
 			}
 
@@ -70,7 +87,8 @@
 		//123.456.789-09
 		//111.222.333-96
 		//224.396.860-69
-		alert(validaCpf('123.456.789-09'))
+		// validaCpf('99999999999')
+		alert(validaCpf('12345678909'))
 	</script>
 
 </body>
